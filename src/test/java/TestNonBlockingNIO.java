@@ -20,7 +20,7 @@ public class TestNonBlockingNIO {
 	@Test
 	public void client() throws IOException, InterruptedException {
 		// 1.获取通道
-		SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1",9898));
+		SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9898));
 
 		// 2.切换为非阻塞模式
 		sChannel.configureBlocking(false);
@@ -75,21 +75,25 @@ public class TestNonBlockingNIO {
 					// 11.注册到选择器
 					schannel.register(selector, SelectionKey.OP_READ);
 				} else if (sk.isReadable()) {
-					// 12.获取"读就绪“的通道
-					SocketChannel schannel = (SocketChannel) sk.channel();
-
-					// 13.读数据
-					ByteBuffer buf = ByteBuffer.allocate(1024);
-					int len = 0;
-					while ((len = schannel.read(buf)) > 0) {
-						buf.flip();
-						System.out.println(new String(buf.array(), 0, len));
-						buf.clear();
-					}
+					Handler(sk);
 				}
 				// 取消选择键
 				iterator.remove();
 			}
+		}
+	}
+
+	public void Handler(SelectionKey sk) throws IOException {
+		// 12.获取"读就绪“的通道
+		SocketChannel schannel = (SocketChannel) sk.channel();
+
+		// 13.读数据
+		ByteBuffer buf = ByteBuffer.allocate(1024);
+		int len = 0;
+		while ((len = schannel.read(buf)) > 0) {
+			buf.flip();
+			System.out.println(new String(buf.array(), 0, len));
+			buf.clear();
 		}
 	}
 }
