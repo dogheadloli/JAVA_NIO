@@ -11,7 +11,7 @@ import java.util.Iterator;
 /**
  * 2 * @Author: 睿
  * 3 * @Date: 2018/11/11 0011 18:24
- * 4
+ * 4    非阻塞NIO UDP
  */
 public class TestNonBlockingNIO2 {
 	@Test

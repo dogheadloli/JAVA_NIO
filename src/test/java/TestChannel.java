@@ -25,7 +25,11 @@ import java.util.Set;
  */
 public class TestChannel {
 
-	// 利用通道完成文件复制
+	/**
+	 * 利用通道完成文件复制
+	 *
+	 * @throws IOException
+	 */
 	@Test
 	public void test1() throws IOException {
 
@@ -54,7 +58,11 @@ public class TestChannel {
 		fileOutputStream.close();
 	}
 
-	// 使用直接缓冲区
+	/**
+	 * 使用直接缓冲区
+	 *
+	 * @throws IOException
+	 */
 	@Test
 	public void test2() throws IOException {
 		// 获取通道
@@ -74,7 +82,11 @@ public class TestChannel {
 		outChannel.close();
 	}
 
-	// 通道之间传输使用直接缓冲区
+	/**
+	 * 通道之间传输使用直接缓冲区
+	 *
+	 * @throws IOException
+	 */
 	@Test
 	public void test3() throws IOException {
 		// 获取通道
@@ -88,7 +100,11 @@ public class TestChannel {
 		outChannel.close();
 	}
 
-	//分散和聚集
+	/**
+	 * 分散和聚集
+	 *
+	 * @throws IOException
+	 */
 	@Test
 	public void test4() throws IOException {
 
@@ -129,6 +145,11 @@ public class TestChannel {
 		}
 	}
 
+	/**
+	 * 字符集
+	 *
+	 * @throws CharacterCodingException
+	 */
 	@Test
 	public void test6() throws CharacterCodingException {
 		Charset cs1 = Charset.forName("GBK");

@@ -11,11 +11,10 @@ import java.util.Iterator;
 
 /**
  * 2 * @Author: 睿
- * 3 * @Date: 2018/11/11 0011 10:05
- * 4    非阻塞NIO TCP
+ * 3 * @Date: 2018/11/27 17:17
+ * 4    客户端有多个线程
  */
-public class TestNonBlockingNIO {
-
+public class TestNonBlockingNIO3 {
 	// 客户端
 	@Test
 	public void client() throws IOException, InterruptedException {
@@ -33,6 +32,8 @@ public class TestNonBlockingNIO {
 		buf.flip();
 		sChannel.write(buf);
 		buf.clear();
+
+		Thread.sleep(10000);
 
 		sChannel.close();
 	}
@@ -57,13 +58,12 @@ public class TestNonBlockingNIO {
 
 		// 6.轮询式获取选择器上已经“准备就绪”的事件
 		while (selector.select() > 0) {
-			// 7.获取当前选择器中所有就绪的事件
+			System.out.println("服务器端正在监听9898端口");
+			// 使用迭代器遍历所有keys
 			Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
-
 			while (iterator.hasNext()) {
 				// 8.获取准备就绪的事件
 				SelectionKey sk = iterator.next();
-
 				// 9.判断具体是什么事件准备就绪
 				if (sk.isAcceptable()) {
 					// 10.若"接收就绪"则获取客户端连接
@@ -72,6 +72,7 @@ public class TestNonBlockingNIO {
 					schannel.configureBlocking(false);
 					// 11.注册到选择器
 					schannel.register(selector, SelectionKey.OP_READ);
+					System.out.println("处理了access请求");
 				} else if (sk.isReadable()) {
 					// 12.获取"读就绪“的通道
 					SocketChannel schannel = (SocketChannel) sk.channel();
@@ -83,6 +84,7 @@ public class TestNonBlockingNIO {
 						System.out.println(new String(buf.array(), 0, len));
 						buf.clear();
 					}
+					System.out.println("处理了areadable请求");
 				}
 				// 取消选择键
 				iterator.remove();

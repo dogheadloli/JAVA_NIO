@@ -10,9 +10,9 @@ import java.nio.ByteBuffer;
 public class TestBuffer {
 	@Test
 	public void test1() {
-		String str="aaa";
+		String str = "aaa";
 		// 分配一个指定大小的缓冲区
-		ByteBuffer buf=ByteBuffer.allocate(1024);
+		ByteBuffer buf = ByteBuffer.allocate(1024);
 
 		System.out.println(buf.position());     // 0
 		System.out.println(buf.limit());        // 1024
@@ -30,9 +30,9 @@ public class TestBuffer {
 		System.out.println(buf.limit());        // 3
 		System.out.println(buf.capacity());     // 1024
 
-		byte [] dst=new byte[buf.limit()];
+		byte[] dst = new byte[buf.limit()];
 		buf.get(dst);
-		System.out.println(new String(dst,0,dst.length));
+		System.out.println(new String(dst, 0, dst.length));
 
 		System.out.println(buf.position());     // 3
 		System.out.println(buf.limit());        // 3
@@ -53,34 +53,34 @@ public class TestBuffer {
 	}
 
 	@Test
-	public void test2(){
-		String str="abcde";
+	public void test2() {
+		String str = "abcde";
 
-		ByteBuffer buffer=ByteBuffer.allocate(1024);
+		ByteBuffer buffer = ByteBuffer.allocate(1024);
 
 		buffer.put(str.getBytes());
 
 		buffer.flip();
 
-		byte[] dst=new byte[buffer.limit()];
-		buffer.get(dst,0,2);
-		System.out.println(new String(dst,0,2));
-		System.out.println(buffer.position());
+		byte[] dst = new byte[buffer.limit()];
+		buffer.get(dst, 0, 2);
+		System.out.println(new String(dst, 0, 2));
+		System.out.println(buffer.position());      // 2
 
 		buffer.mark();// 标记
 
-		buffer.get(dst,2,2);
-		System.out.println(new String(dst,2,2));
-		System.out.println(buffer.position());
+		buffer.get(dst, 2, 2);
+		System.out.println(new String(dst, 2, 2));
+		System.out.println(buffer.position());      // 4
 
 		buffer.reset();
-		System.out.println(buffer.position());
+		System.out.println(buffer.position());      // 2
 	}
 
 	@Test
-	public void test3(){
+	public void test3() {
 		// 分配直接缓冲区
-		ByteBuffer buffer=ByteBuffer.allocateDirect(1024);
+		ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
 
 		System.out.println(buffer.isDirect());
 	}

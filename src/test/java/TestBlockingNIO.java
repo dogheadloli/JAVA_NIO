@@ -75,9 +75,8 @@ public class TestBlockingNIO {
 		buf.flip();
 		sChannel.write(buf);
 
-		sChannel.shutdownOutput();
 
-		Thread.sleep(10000);
+
 
 		sChannel.close();
 		outChannel.close();
